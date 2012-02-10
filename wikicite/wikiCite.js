@@ -18,7 +18,7 @@
 
 			*/
 			var d, output = '{{cite ', fields = {}, url,
-			b, headerInfo = ['title', 'description'],
+			b, headerEls = ['title'], metaEls = ['description', 'date'],
 			n,
 			headCrawler = function(str) {
 				// get header element and go through 
@@ -27,14 +27,19 @@
 				$('head').each(function(i, o) {
 					if($.inArray(i, n)) {
 						
-						str += $(o).text();
+						str += '|' + $(o).text() + ' ';
 					} 
 				});
 				
-				$('meta').each(function(i, o) {
-					
-				});
 				
+				$.each(metaEls, function(e, l){
+					
+					$('meta').each(function(i, o) {
+						if($(o).attr(l) !== undefined) {
+							str += '|' + $(o).attr(l) + ' ';
+						}
+					});
+				}
 				return str;
 			};
 
