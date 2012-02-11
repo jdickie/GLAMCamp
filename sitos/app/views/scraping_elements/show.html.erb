@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Scraping algorithm:</b>
+  <%= @scraping_element.scraping_algorithm_id %>
+</p>
+
+<p>
+  <b>Marc key:</b>
+  <%= @scraping_element.marc_key %>
+</p>
+
+<p>
+  <b>Hash key:</b>
+  <%= @scraping_element.hash_key %>
+</p>
+
+
+<%= link_to 'Edit', edit_scraping_element_path(@scraping_element) %> |
+<%= link_to 'Back', scraping_elements_path %>

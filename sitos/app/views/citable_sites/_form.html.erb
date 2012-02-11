@@ -1,0 +1,25 @@
+<%= form_for(@citable_site) do |f| %>
+  <% if @citable_site.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@citable_site.errors.count, "error") %> prohibited this citable_site from being saved:</h2>
+
+      <ul>
+      <% @citable_site.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :domain %><br />
+    <%= f.text_field :domain %>
+  </div>
+  <div class="field">
+    <%= f.label :scraping_algorithm %><br />
+    <%= f.text_field :scraping_algorithm %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

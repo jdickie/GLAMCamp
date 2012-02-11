@@ -1,0 +1,25 @@
+<h1>Listing scraping_algorithms</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Maintainer</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @scraping_algorithms.each do |scraping_algorithm| %>
+  <tr>
+    <td><%= scraping_algorithm.name %></td>
+    <td><%= scraping_algorithm.maintainer %></td>
+    <td><%= link_to 'Show', scraping_algorithm %></td>
+    <td><%= link_to 'Edit', edit_scraping_algorithm_path(scraping_algorithm) %></td>
+    <td><%= link_to 'Destroy', scraping_algorithm, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Scraping algorithm', new_scraping_algorithm_path %>

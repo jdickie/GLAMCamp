@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @scraping_algorithm.name %>
+</p>
+
+<p>
+  <b>Maintainer:</b>
+  <%= @scraping_algorithm.maintainer %>
+</p>
+
+
+<%= link_to 'Edit', edit_scraping_algorithm_path(@scraping_algorithm) %> |
+<%= link_to 'Back', scraping_algorithms_path %>

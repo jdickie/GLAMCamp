@@ -1,0 +1,29 @@
+<%= form_for(@scraping_element) do |f| %>
+  <% if @scraping_element.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@scraping_element.errors.count, "error") %> prohibited this scraping_element from being saved:</h2>
+
+      <ul>
+      <% @scraping_element.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :scraping_algorithm_id %><br />
+    <%= f.number_field :scraping_algorithm_id %>
+  </div>
+  <div class="field">
+    <%= f.label :marc_key %><br />
+    <%= f.text_field :marc_key %>
+  </div>
+  <div class="field">
+    <%= f.label :hash_key %><br />
+    <%= f.text_field :hash_key %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

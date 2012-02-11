@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Domain:</b>
+  <%= @citable_site.domain %>
+</p>
+
+<p>
+  <b>Scraping algorithm:</b>
+  <%= @citable_site.scraping_algorithm %>
+</p>
+
+
+<%= link_to 'Edit', edit_citable_site_path(@citable_site) %> |
+<%= link_to 'Back', citable_sites_path %>

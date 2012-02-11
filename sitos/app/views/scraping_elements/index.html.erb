@@ -1,0 +1,27 @@
+<h1>Listing scraping_elements</h1>
+
+<table>
+  <tr>
+    <th>Scraping algorithm</th>
+    <th>Marc key</th>
+    <th>Hash key</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @scraping_elements.each do |scraping_element| %>
+  <tr>
+    <td><%= scraping_element.scraping_algorithm_id %></td>
+    <td><%= scraping_element.marc_key %></td>
+    <td><%= scraping_element.hash_key %></td>
+    <td><%= link_to 'Show', scraping_element %></td>
+    <td><%= link_to 'Edit', edit_scraping_element_path(scraping_element) %></td>
+    <td><%= link_to 'Destroy', scraping_element, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Scraping element', new_scraping_element_path %>
