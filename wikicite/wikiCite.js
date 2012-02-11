@@ -4,6 +4,17 @@
 			
 			
 			
+		}, pattern;
+		
+	
+		
+		
+		that.setPattern = function(pattern) {
+			pattern = pattern;
+		};
+		
+		that.getPattern = function() {
+			return pattern;
 		};
 		
 		that.getCitation = function () {
@@ -39,7 +50,7 @@
 							str += '|' + $(o).attr(l) + ' ';
 						}
 					});
-				}
+				});
 				return str;
 			};
 
