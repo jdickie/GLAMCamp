@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  scraping_algorithm_id: 1
+  marc_key: MyString
+  hash_key: MyString
+
+two:
+  scraping_algorithm_id: 1
+  marc_key: MyString
+  hash_key: MyString
