@@ -1,4 +1,10 @@
 Sitos::Application.routes.draw do
+  resources :citable_sites
+
+  resources :scraping_algorithms
+
+  resources :scraping_elements
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
