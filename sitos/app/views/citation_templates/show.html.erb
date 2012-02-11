@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @citation_template.name %>
+</p>
+
+<p>
+  <b>Domain:</b>
+  <%= @citation_template.domain %>
+</p>
+
+<p>
+  <b>Pattern:</b>
+  <%= @citation_template.pattern %>
+</p>
+
+
+<%= link_to 'Edit', edit_citation_template_path(@citation_template) %> |
+<%= link_to 'Back', citation_templates_path %>

@@ -11,13 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120211213518) do
+ActiveRecord::Schema.define(:version => 20120211224935) do
 
   create_table "citable_sites", :force => true do |t|
     t.string   "domain"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
     t.integer  "scraping_algorithm_id"
+  end
+
+  create_table "citation_templates", :force => true do |t|
+    t.string   "name"
+    t.string   "domain"
+    t.string   "pattern"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "scraping_algorithms", :force => true do |t|

@@ -1,4 +1,6 @@
 Sitos::Application.routes.draw do
+  resources :citation_templates
+
   get "citations/get_citation_info_by_domain"
 
   resources :citable_sites
