@@ -7,6 +7,7 @@
 		}, fields,
 		doc = 'blank',
 		rootElement = 'body',
+		outputHash = {},
 		getURL = function(url) {
 			// Curl a page and store it as the
 			// doc item
@@ -56,20 +57,18 @@
 				// Index is MARC field value
 				// value is the name of the MARC fiels
 				$.each(fields, function(i, o) {
-					search = new RegExp('/' + i + '/');
+					search = new RegExp(i);
 					// find i in the page
 					
 					if(search.test($(o).text())) {
 						// returns true, has value in it
 						// or in next DOM element
 						if(/[A-Za-z]+/.test($(o).text())) {
-							fields[i] = $(o).text();
+							outputHash[o] = $(o).text();
 						} else {
-							fields[i] = $(o).next().text();
+							outputHash[o] = $(o).next().text();
 						}
 					}
-			
-					
 				});
 			}
 		};
@@ -78,16 +77,16 @@
 		/*
 		@pattern = string with %s<MARC key>%s pointers
 		*/
-		app.getCitation = function (pattern) {
-			var search;
-			// Turn into a string
-			$.each(fields, function(i,o) {
-				search = new RegExp('/%s' + i + '%s/');
-				if(search.test(pattern)) {
-					pattern.replace('/%s' + i + '/%s', o);
-				}
-			});
-				
+		app.getCitation = function (pattern, delim) {
+			var search = new RegExp(delim + '[A-Za-z0-9]*' + delim),
+			v, r;
+			// replace pattern string elements with 
+			// actual values
+			while(search.exec(pattern) !== null) {
+				v = search.exec(pattern);
+				r = v.replace(delim, '');
+				pattern.replace(r, hashOutput[r]);
+			}
 		};
 		
 		return app;
