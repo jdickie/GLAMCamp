@@ -13,4 +13,9 @@ API
 -----
 -----
 
+GET /citations/get_citation_method_by_domain?domain=some_citable_domain
+with the header Accept: application/json
+
+To get something like:
+
 

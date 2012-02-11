@@ -10,4 +10,4 @@ algo = ScrapingAlgorithm.create("name" => "Aleph", "maintainer" => "asaf.bartov@
 ScrapingElement.create("scraping_algorithm_id"=>algo, "marc_key"=>"245", "hash_key"=>"TitleSubtitleResponsibility")
 ScrapingElement.create("scraping_algorithm_id"=>algo, "marc_key"=>"260", "hash_key"=>"PlacePublisherDate")
 ScrapingElement.create("scraping_algorithm_id"=>algo, "marc_key"=>"250", "hash_key"=>"Edition")
-CitableSite.create("domain" => "aleph.nkp.cz", "scraping_algorithm" => algo)
+CitableSite.create("domain" => "aleph.nkp.cz", "scraping_algorithm_id" => algo)

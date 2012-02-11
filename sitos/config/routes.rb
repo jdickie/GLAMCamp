@@ -1,9 +1,14 @@
 Sitos::Application.routes.draw do
+  get "citations/get_citation_info_by_domain"
+
   resources :citable_sites
 
   resources :scraping_algorithms
 
   resources :scraping_elements
+
+  match '/citations/get_citation_method_by_domain', :controller => :citations, :action => :get_citation_info_by_domain
+  match '/citations', :controller => :citations, :action => :options, :constraints => {:method => 'OPTIONS'}
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
