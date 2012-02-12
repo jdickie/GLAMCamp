@@ -40,7 +40,11 @@ class CitableSitesController < ApplicationController
   # POST /citable_sites
   # POST /citable_sites.json
   def create
-    @citable_site = CitableSite.new(params[:citable_site])
+    p = params[:citable_site]
+    a = ScrapingAlgorithm.find_by_name(p[:scraping_algorithm])
+    p.delete(:scraping_algorithm)
+    @citable_site = CitableSite.new(p)
+    @citable_site.scraping_algorithm = a
 
     respond_to do |format|
       if @citable_site.save
@@ -58,7 +62,12 @@ class CitableSitesController < ApplicationController
   def update
     @citable_site = CitableSite.find(params[:id])
 
+    p = params[:citable_site]
+    a = ScrapingAlgorithm.find_by_name(p[:scraping_algorithm])
+    p.delete(:scraping_algorithm)
+    @citable_site.scraping_algorithm = a
     respond_to do |format|
+
       if @citable_site.update_attributes(params[:citable_site])
         format.html { redirect_to @citable_site, notice: 'Citable site was successfully updated.' }
         format.json { head :no_content }

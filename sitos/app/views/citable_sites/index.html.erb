@@ -12,7 +12,7 @@
 <% @citable_sites.each do |citable_site| %>
   <tr>
     <td><%= citable_site.domain %></td>
-    <td><%= citable_site.scraping_algorithm %></td>
+    <td><%= citable_site.scraping_algorithm.name %></td>
     <td><%= link_to 'Show', citable_site %></td>
     <td><%= link_to 'Edit', edit_citable_site_path(citable_site) %></td>
     <td><%= link_to 'Destroy', citable_site, confirm: 'Are you sure?', method: :delete %></td>

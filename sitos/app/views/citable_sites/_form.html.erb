@@ -17,7 +17,16 @@
   </div>
   <div class="field">
     <%= f.label :scraping_algorithm %><br />
-    <%= f.text_field :scraping_algorithm %>
+    <% algos = ScrapingAlgorithm.all.map { |a| [a.name, a.name] } 
+       current_algo = nil
+       if @citable_site.scraping_algorithm.nil? 
+         current_algo = algos.first[0] # just pick the first one by default
+       else
+         current_algo = @citable_site.scraping_algorithm.name 
+       end
+         %>
+
+    <%= f.select(:scraping_algorithm, options_for_select(algos, current_algo )) %>
   </div>
   <div class="actions">
     <%= f.submit %>
