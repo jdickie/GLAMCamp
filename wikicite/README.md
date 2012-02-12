@@ -33,6 +33,6 @@ Gets the current pattern hash
 
 Takes the record fields given through setRecordFields, replaces each MARC value with what is gleaned from the DOM. 
 
-**getCitation(@pattern)**
+**getCitation(@pattern, @delim, @container)**
 
-Replaces all %s<MARC VALUE>%s items with their equivalents in the recordFields hash
+Replaces all %s<MARC VALUE>%s items with their equivalents in the recordFields hash. *delim* refers to the delimiter used in the template string. @container is the HTML element to which the results will be attached. 

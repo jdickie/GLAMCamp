@@ -8,6 +8,8 @@
 		doc = 'blank',
 		rootElement = 'body',
 		outputHash = {},
+		citationServerUrl = options.citation || '',
+		templateServerUrl = options.template || '',
 		getURL = function(url) {
 			// Curl a page and store it as the
 			// doc item
@@ -22,16 +24,20 @@
 				async: false
 			}).responseText;
 		},
-		crawlAndFind = function(itemString) {
-			var search = new RegExp('/' + itemString + '/');
+		findInHash = function(itemString) {
+			var search = new RegExp('/' + itemString + '/gi'),
+			index = 0;
 			// Given an itemString, find text node in
 			// page
-			$(app.doc).find('table *').each(function(i,o) {
-				
-				if(search.test($(o).text())) {
-					
-				}
+			$.each(outputHash, function(i, o) {
+				console.log(i);
+				if(search.test(i)) {
+					index = i;
+					return false;
+				} 
 			});
+			
+			return index;
 		};
 		
 		app.setRootElement = function(path) {
@@ -41,8 +47,8 @@
 			rootElement = path;
 		};
 		
-		app.setRecordFields = function(fields) {
-			fields = fields;
+		app.setRecordFields = function(nField) {
+			fields = nField;
 		};
 		
 		app.getRecordFields = function() {
@@ -50,8 +56,8 @@
 		};
 		
 		app.parse = function() {
-			if(app.getPattern() !== undefined) {
-				var search;
+			if(fields !== undefined) {
+				var search, elFind;
 				
 				// Loop through each key-value pair
 				// Index is MARC field value
@@ -59,16 +65,13 @@
 				$.each(fields, function(i, o) {
 					search = new RegExp(i);
 					// find i in the page
-					
-					if(search.test($(o).text())) {
-						// returns true, has value in it
-						// or in next DOM element
-						if(/[A-Za-z]+/.test($(o).text())) {
-							outputHash[o] = $(o).text();
-						} else {
-							outputHash[o] = $(o).next().text();
-						}
+					elFind = $(rootElement + ' td:contains(\'' + i + '\')');
+					if(/[A-Za-z]+/g.test($(elFind).text())) {
+						outputHash[o] = $(elFind).text();
+					} else {
+						outputHash[o] = $(elFind).next().text();
 					}
+					
 				});
 			}
 		};
@@ -77,16 +80,31 @@
 		/*
 		@pattern = string with %s<MARC key>%s pointers
 		*/
-		app.getCitation = function (pattern, delim) {
-			var search = new RegExp(delim + '[A-Za-z0-9]*' + delim),
-			v, r;
+		app.getCitation = function (pattern, delim, container) {
+			var search = new RegExp(delim + 'WIKICITE:[A-Za-z0-9]*' + delim),
+			v, r, html = '<p>{{citation', val;
+			// empty container
+			$(container).empty();
+			
 			// replace pattern string elements with 
 			// actual values
 			while(search.exec(pattern) !== null) {
 				v = search.exec(pattern);
-				r = v.replace(delim, '');
-				pattern.replace(r, hashOutput[r]);
+				r = v.toString().replace(delim + 'WIKICITE:', '');
+				r = r.replace(delim, '');
+				console.log('inside while loop for pattern ' + r);
+				
+				val = outputHash[findInHash(r)] || 'N/A';
+				// add series to html
+				html += '\n<span class="output_record_item">| ' + r + '=' + '<input id="' + 
+				r + '" type="text" value="' + val + '"></input></span>';
+				
+				pattern = pattern.replace(v.toString(), outputHash[r]);
+				
 			}
+			html += '}}</p>';
+			$(container).append(html);
+			// return pattern;
 		};
 		
 		return app;

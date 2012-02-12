@@ -19,6 +19,30 @@
 			display: inline;
 			margin: 0 10px 10px 10px;
 		}
+		#output_display p {
+			margin: 5px 0 0 0;
+			
+		}
+		#output_display p .output_record_item {
+			display: block;
+			padding: 2px;
+		}
+		#save_record {
+			margin: 0px 500px 10px 10px;
+			float: right;
+			display: inline;
+		}
+		.button, .button:hover {
+			margin: 10px 5px 5px 10px;
+			padding: 5px;
+			font-size: 14px;
+			border: 1px solid red;
+			width: 200px;
+			cursor: pointer;
+		}
+		.button:hover {
+			background: cyan;
+		}
 	</style>
 </head>
 <body>
@@ -28,8 +52,12 @@
 		
 	
 	</div>
+	<div id="save_record">
+		<textarea id="final" rows='20' cols='20'></textarea>
+	</div>
 	<div id="wikicite_controls">
-		
+		<div id="save" class="button">SAVE</div>
+		<div id="restart" class="button">RESTART</div>
 	</div>
 	<table id="record" cellspacing=2 border=0 width=100%>
 
