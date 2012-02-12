@@ -10,6 +10,7 @@ Sitos::Application.routes.draw do
   resources :scraping_elements
 
   match '/citations/get_citation_method_by_domain', :controller => :citations, :action => :get_citation_info_by_domain
+  match '/citations/get_citation_pattern_by_language', :controller => :citations, :action => :get_citation_pattern_by_language
   match '/citations', :controller => :citations, :action => :options, :constraints => {:method => 'OPTIONS'}
 
   # The priority is based upon order of creation:

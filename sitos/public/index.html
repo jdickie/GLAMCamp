@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Ruby on Rails: Welcome aboard</title>
+    <title>Sitos: Wikipedia Citations FTW</title>
     <style type="text/css" media="screen">
       body {
         margin: 0;
@@ -40,7 +40,6 @@
         border: 3px solid #aaa;
         border-top: none;
         padding: 25px;
-        width: 500px;
       }
 
       #sidebar {
@@ -187,49 +186,53 @@
   </head>
   <body>
     <div id="page">
-      <div id="sidebar">
-        <ul id="sidebar-items">
-          <li>
-            <h3>Browse the documentation</h3>
-            <ul class="links">
-              <li><a href="http://guides.rubyonrails.org/">Rails Guides</a></li>
-              <li><a href="http://api.rubyonrails.org/">Rails API</a></li>
-              <li><a href="http://www.ruby-doc.org/core/">Ruby core</a></li>
-              <li><a href="http://www.ruby-doc.org/stdlib/">Ruby standard library</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-
       <div id="content">
         <div id="header">
-          <h1>Welcome aboard</h1>
-          <h2>You&rsquo;re riding Ruby on Rails!</h2>
+          <h1>Sitos: Wikipedia Citations FTW!</h1>
         </div>
 
-        <div id="about">
-          <h3><a href="rails/info/properties" onclick="about(); return false">About your application&rsquo;s environment</a></h3>
-          <div id="about-content" style="display: none"></div>
-        </div>
-
-        <div id="getting-started">
-          <h1>Getting started</h1>
           <h2>Here&rsquo;s how to get rolling:</h2>
 
           <ol>
             <li>
-              <h2>Use <code>rails generate</code> to create your models and controllers</h2>
-              <p>To see all available options, run it without parameters.</p>
+              <h2>Get citation method by domain name</h2>
+              <p>GET /citations/get_citation_method_by_domain?domain=some_citable_domain
+              with the header Accept: application/json
+              <br/>
+              e.g. like this:<br/>
+              curl -H "Accept: application/json" "http://localhost:3000/citations/get_citation_info_by_domain?domain=aleph.nkp.cz"<br/>
+              <br/>
+              To get something like:
+              <br/>
+              {"245":"TitleSubtitleResponsibility","260":"PlacePublisherDate","250":"Edition"}
+              </p>
             </li>
 
             <li>
-              <h2>Set up a default route and remove <span class="filename">public/index.html</span></h2>
-              <p>Routes are set up in <span class="filename">config/routes.rb</span>.</p>
-            </li>
+              <h2>Get Wikipedia citation template by language code</h2>
+                       <p>GET /citations/get_citation_method_by_domain?domain=some_citable_domain
+                          with the header Accept: application/json
+                          <br/>
+                          e.g. like this:<br/>
+                          curl -H "Accept: application/json" "http://localhost:3000/citations/get_citation_pattern_by_language?lang=cs"<br/>
+                          <br/>
+                          To get something like:
+                          <br/>
+                          {"pattern":"{{Citace monografie
+                           | příjmení = @@WIKICITE:last_name@@
+                           | jméno = @@WIKICITE:first_name@@
+                           | titul = @@WIKICITE:title@@
+                           | vydavatel = @@WIKICITE:publisher@@
+                           | místo = @@WIKICITE:location@@
+                           | rok = @@WIKICITE:year@@
+                           | počet stran = @@WIKICITE:number_of_pages@@
+                           | strany = @@WIKICITE:pages@@
+                           | isbn = @@WIKICITE:isbn@@
+                           | jazyk = @@WIKICITE:language@@
+                          }}
+                          "}
+                                                                                                                                                     </p>
 
-            <li>
-              <h2>Create your database</h2>
-              <p>Run <code>rake db:create</code> to create your database. If you're not using SQLite (the default), edit <span class="filename">config/database.yml</span> with your username and password.</p>
             </li>
           </ol>
         </div>

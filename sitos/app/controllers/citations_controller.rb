@@ -6,4 +6,7 @@ class CitationsController < ApplicationController
       @marc_tags[e.marc_key] = e.hash_key
     }
   end
+  def get_citation_pattern_by_language
+    @pattern = CitationTemplate.find_by_domain(params[:lang]+'.wikipedia.org') # TODO: un-hardcode
+  end
 end
