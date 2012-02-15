@@ -1,8 +1,17 @@
 {
     "name": "Sitos",
-    "version": "1.0",
+    "version": "0.3",
     "description": "Automagically create a Wikipedia citation from a library catalog item page.",
-    "browser_action": { "default_icon": "icon.png",
+    "browser_action": { "default_icon": "images/editsmaller.png",
         "popup": "popup.html" },
-    "permissions": ["http://api.flickr.com/"]
+	"content_scripts": [{
+		"matches": ["http://aleph.nkp.cz/*"],
+		"js": ["js/jquery.js", "js/intro.js", "js/wikiCite.js"]
+	}],
+    "permissions": ["http://api.flickr.com/"],
+"icons": {
+	"16": "images/editsmallest.png",
+	"48": "images/editsmaller.png",
+	"128": "images/edit.png"
+}
 }

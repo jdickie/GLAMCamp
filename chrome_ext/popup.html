@@ -11,42 +11,125 @@ img {
   width:75px;
   height:75px;
 }
+#output_display {
+	padding: 10px;
+	font-size: 28px;
+	display: inline;
+	margin: 0 10px 10px 10px;
+}
+#output_display p {
+	margin: 5px 0 0 0;
+	
+}
+#output_display p .output_record_item {
+	display: block;
+	padding: 2px;
+}
+#wikicite_controls {
+	margin: 10px 0px 0px 10px;
+}
+#save_record {
+	margin: 0px 500px 10px 10px;
+	float: right;
+	display: inline;
+}
+.button, .button:hover {
+	margin: 10px 5px 5px 10px;
+	padding: 5px;
+	font-size: 14px;
+	border: 1px solid red;
+	width: 200px;
+	cursor: pointer;
+}
+.button:hover {
+	background: cyan;
+}
 </style>
-<script type="text/javascript" src="../lib/jquery.js"></script>
-<script type="text/javascript" src="../wikicite/js/intro.js"></script>
-<script type="text/javascript" src="../wikicite/js/wikiCite.js"></script>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/intro.js"></script>
+<script type="text/javascript" src="js/wikiCite.js"></script>
 <script>
-var req = new XMLHttpRequest();
-req.open(
-    "GET",
-    "http://api.flickr.com/services/rest/?" +
-        "method=flickr.photos.search&" +
-        "api_key=90485e931f687a9b9c2a66bf58a3861a&" +
-        "text=hello%20world&" +
-        "safe_search=1&" +  // 1 is "safe"
-        "content_type=1&" +  // 1 is "photos only"
-        "sort=relevance&" +  // another good one is "interestingness-desc"
-        "per_page=20",
-    true);
-req.onload = showPhotos;
-req.send(null);
+$(function() {
+	var wikicite;
+	
+	// on start, performs following:
+	// Save and Restart buttons
+	$('#save').click(function(e) {
+		if($('#output_display').html() !== undefined) {
+			var txt = $('#output_display > p').text();
+		
+			$('#output_display > p > span').each(function(i, o) {
+				txt += $(o).text();
+				txt += $(i + ' > input').val();
+			});
+		
+		
+			$('#save_record > textarea').val(txt);
+		}
+	});
+	console.log('loaded');
+	wikicite = new WikiCite({});
+	
+	// wikicite.setPage('http://aleph.nkp.cz/F/IS65DIP7G4VRYHU7HNHY1YYKFE92KH4F6FG5CDAA57VKHNSXB2-21500?func=full-set-set&set_number=056947&set_entry=000004&format=001');
+	
+	// get domain info
+    // var m = window.location.match(/^http:\/\/[^\/]+/);
+    // domain = m[0];
+    // get record fields hash from server
+    $.ajax({
+        url: 'callServer.php',
+        type: 'post',
+        data: {
+            urlsend: 'http://demos.interedition.eu/sitos/citations/get_citation_method_by_domain',
+            datasend: 'domain=aleph.nkp.cz'
+        },
+        dataType: 'json',
+        success: function(hash) {
+	console.log('hash success ' + hash);
+			$('#output_display').text('json success');
+            // set the root element where the information we want is
+            wikicite.setRootElement('table#record');
 
-function showPhotos() {
-  var photos = req.responseXML.getElementsByTagName("photo");
+            // setting the record fields to the given hash
+            wikicite.setRecordFields(hash);
+            // parse together
+            wikicite.parse();
 
-  for (var i = 0, photo; photo = photos[i]; i++) {
-    var img = document.createElement("image");
-    img.src = constructImageURL(photo);
-    document.body.appendChild(img);
-  }
-}
+            // get the citation string from server
+            $.ajax({
+                url: 'callServer.php',
+                type: 'post',
+                data: {
+                    urlsend: 'http://demos.interedition.eu/sitos/citations/get_citation_pattern_by_language',
+                    datasend: 'lang=cs'
+                },
+                dataType: 'json',
+                success: function(template) {
+                    citation = wikicite.getCitation(template.pattern, '@@', '#output_display');
+					// get output string and display
+	                // $('#output_display').text(citation);
+                }
+            });
 
-// See: http://www.flickr.com/services/api/misc.urls.html
-function constructImageURL(photo) {
-  return "http://farm" + photo.getAttribute("farm") +
-      ".static.flickr.com/" + photo.getAttribute("server") +
-      "/" + photo.getAttribute("id") +
-      "_" + photo.getAttribute("secret") +
-      "_s.jpg";
-}
+            
+        }
+    });
+	
+});
 </script>
+
+<body>
+	<div id="output_display">
+		
+	
+	</div>
+	<div id="save_record">
+		<textarea id="final" rows='20' cols='20'></textarea>
+	</div>
+	<div id="wikicite_controls">
+		<div id="load" class="button">LOAD</div>
+		<div id="save" class="button">SAVE</div>
+		<div id="restart" class="button">RESTART</div>
+	</div>
+	
+</body>
