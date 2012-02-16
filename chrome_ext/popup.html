@@ -1,3 +1,13 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>client</title>
+	<meta name="generator" content="TextMate http://macromates.com/">
+	<meta name="author" content="Grant Dickie">
+	<!-- Date: 2012-02-16 -->
 <style>
 body {
   min-width:357px;
@@ -46,12 +56,11 @@ img {
 }
 </style>
 <script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/intro.js"></script>
 <script type="text/javascript" src="js/wikiCite.js"></script>
 <script>
 $(function() {
 	var wikicite;
-	
+	console.log('starting script');
 	// on start, performs following:
 	// Save and Restart buttons
 	$('#save').click(function(e) {
@@ -67,17 +76,14 @@ $(function() {
 			$('#save_record > textarea').val(txt);
 		}
 	});
-	console.log('loaded');
-	wikicite = new WikiCite({});
-	
-	// wikicite.setPage('http://aleph.nkp.cz/F/IS65DIP7G4VRYHU7HNHY1YYKFE92KH4F6FG5CDAA57VKHNSXB2-21500?func=full-set-set&set_number=056947&set_entry=000004&format=001');
+	wikicite = WikiCite({});
 	
 	// get domain info
     // var m = window.location.match(/^http:\/\/[^\/]+/);
     // domain = m[0];
     // get record fields hash from server
     $.ajax({
-        url: 'callServer.php',
+        url: 'http://localhost:8888/GLAMCamp/chrome_ext/callServer.php',
         type: 'post',
         data: {
             urlsend: 'http://demos.interedition.eu/sitos/citations/get_citation_method_by_domain',
@@ -85,8 +91,8 @@ $(function() {
         },
         dataType: 'json',
         success: function(hash) {
-	console.log('hash success ' + hash);
-			$('#output_display').text('json success');
+			console.log('hash success ' + hash);
+			
             // set the root element where the information we want is
             wikicite.setRootElement('table#record');
 
@@ -97,7 +103,7 @@ $(function() {
 
             // get the citation string from server
             $.ajax({
-                url: 'callServer.php',
+                url: 'http://localhost:8888/GLAMCamp/chrome_ext/callServer.php',
                 type: 'post',
                 data: {
                     urlsend: 'http://demos.interedition.eu/sitos/citations/get_citation_pattern_by_language',
@@ -107,7 +113,7 @@ $(function() {
                 success: function(template) {
                     citation = wikicite.getCitation(template.pattern, '@@', '#output_display');
 					// get output string and display
-	                // $('#output_display').text(citation);
+	                $('#output_display').text(citation);
                 }
             });
 
@@ -117,7 +123,7 @@ $(function() {
 	
 });
 </script>
-
+</head>
 <body>
 	<div id="output_display">
 		

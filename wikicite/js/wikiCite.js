@@ -39,7 +39,7 @@
 			
 			return index;
 		};
-		
+			
 		// Takes given uri and performs get() to 
 		// retrieve page html to use in parse()
 		app.setPage = function(uri) {
@@ -135,7 +135,7 @@
 			$(container).append(html);
 			// return pattern;
 		};
-		
+		console.log('app complete');
 		return app;
 	};
     
