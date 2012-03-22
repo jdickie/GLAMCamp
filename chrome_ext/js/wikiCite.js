@@ -1,3 +1,7 @@
+
+
+var WikiCite = WikiCite || {};
+var jQuery = jQuery || {};
 (function($) {
 	WikiCite = function(options) {
 		var app = function() {

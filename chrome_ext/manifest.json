@@ -1,0 +1,16 @@
+{
+    "name": "Sitos",
+    "version": "0.3",
+    "description": "Automagically create a Wikipedia citation from a library catalog item page.",
+    "browser_action": {
+        "default_icon": "images/editsmaller.png",
+		"default_title": "Wiki Citation Engine",
+        "default_popup": "popup.html"
+    },
+    "permissions": ["http://*/"],
+    "icons": {
+        "16": "images/editsmallest.png",
+        "48": "images/editsmaller.png",
+        "128": "images/edit.png"
+    }
+}
