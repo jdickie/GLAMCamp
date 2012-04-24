@@ -83,12 +83,8 @@ $(function() {
     // domain = m[0];
     // get record fields hash from server
     $.ajax({
-        url: 'http://localhost:8888/GLAMCamp/chrome_ext/callServer.php',
+        url: 'http://demos.interedition.eu/sitos/citations/get_citation_method_by_domain',
         type: 'post',
-        data: {
-            urlsend: 'http://demos.interedition.eu/sitos/citations/get_citation_method_by_domain',
-            datasend: 'domain=aleph.nkp.cz'
-        },
         dataType: 'json',
         success: function(hash) {
 			console.log('hash success ' + hash);
@@ -103,12 +99,8 @@ $(function() {
 
             // get the citation string from server
             $.ajax({
-                url: 'http://localhost:8888/GLAMCamp/chrome_ext/callServer.php',
+                url: 'http://demos.interedition.eu/sitos/citations/get_citation_pattern_by_language',
                 type: 'post',
-                data: {
-                    urlsend: 'http://demos.interedition.eu/sitos/citations/get_citation_pattern_by_language',
-                    datasend: 'lang=cs'
-                },
                 dataType: 'json',
                 success: function(template) {
                     citation = wikicite.getCitation(template.pattern, '@@', '#output_display');

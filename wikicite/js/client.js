@@ -32,12 +32,8 @@ to generate a wiki citation
         // domain = m[0];
         // get record fields hash from server
         $.ajax({
-            url: 'callServer.php',
-            type: 'post',
-            data: {
-                urlsend: 'http://demos.interedition.eu/sitos/citations/get_citation_method_by_domain',
-                datasend: 'domain=aleph.nkp.cz'
-            },
+            url: 'http://demos.interedition.eu/sitos/citations/get_citation_method_by_domain',
+            type: 'get',
             dataType: 'json',
             success: function(hash) {
                 // set the root element where the information we want is
@@ -50,12 +46,8 @@ to generate a wiki citation
 
                 // get the citation string from server
                 $.ajax({
-                    url: 'callServer.php',
-                    type: 'post',
-                    data: {
-                        urlsend: 'http://demos.interedition.eu/sitos/citations/get_citation_pattern_by_language',
-                        datasend: 'lang=cs'
-                    },
+                    url: 'http://demos.interedition.eu/sitos/citations/get_citation_pattern_by_language',
+                    type: 'get',
                     dataType: 'json',
                     success: function(template) {
                         citation = wikicite.getCitation(template.pattern, '@@', '#output_display');
