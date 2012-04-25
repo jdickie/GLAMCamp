@@ -1,6 +1,6 @@
 {
     "name": "Sitos",
-    "version": "0.3",
+    "version": "0.31",
     "description": "Automagically create a Wikipedia citation from a library catalog item page.",
     "browser_action": {
         "default_icon": "images/editsmaller.png",
